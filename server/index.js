@@ -16,9 +16,7 @@ const client = require('twilio')(accountSid, authToken);
     res.send('{"message":"Hello from the custom server!"}');
   });
 
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../react-ui/build')));
-  }
+  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));

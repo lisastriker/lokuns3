@@ -86,7 +86,7 @@ function signIn(email, password){
 
 function signOut(){
   firebase.auth().signOut().then(() => {
-    console.log("SIgned out")
+    console.log("Signed out")
   }).catch((error) => {
     // An error happened.
   });
