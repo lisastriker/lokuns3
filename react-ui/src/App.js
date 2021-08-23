@@ -151,7 +151,8 @@ function App() {
       <Route path="/cliniclanding">
         <ClinicLanding />
       </Route>
-      <Route path="/home" render={()=>userProfile? <Home></Home> : <Redirect to={{path:'/'}}></Redirect>}>
+      <Route path="/home">
+        <Home/>
       </Route>
       <Route path="/">
         <SignInForm/>
@@ -162,7 +163,9 @@ function App() {
       </Switch>
     </div>
     </Router>
-  );
+  );      
 }
 
 export default App;
+
+// <Route path="/home" render={()=>userProfile? <Home></Home> : <Redirect to={{path:'/'}}></Redirect>}>
