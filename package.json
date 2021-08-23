@@ -14,7 +14,8 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "twilio": "^3.67.0"
   },
   "repository": {
     "type": "git",

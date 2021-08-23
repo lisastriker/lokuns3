@@ -3,8 +3,8 @@ const path = require('path');
 const accountSid = process.env.REACT_APP_TWILIO_ACCOUNT_SID
 const authToken = process.env.REACT_APP_TWILIO_AUTH_TOKEN
 const PORT = process.env.PORT || 5000;
+const Meteor = require('meteor')
 const client = Meteor.require('twilio')(accountSid, authToken);
-
   const app = express();
 
   // Priority serve any static files.
