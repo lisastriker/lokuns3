@@ -151,7 +151,7 @@ function DoctorForm(props) {
       console.log(date)
     }
   }, [day])
-  const uncoded = encodeURIComponent(`https://lisastriker.github.io/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&${finalNumberValue} `)
+  const uncoded = encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&${finalNumberValue} `)
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
   const encodedMessage = `${uncoded} ${encoded}`
   

@@ -152,7 +152,7 @@ function App() {
         <ClinicLanding />
       </Route>
       <Route path="/home">
-        <Home/>
+        {userProfile ? <Home></Home> : <SignInForm></SignInForm>}
       </Route>
       <Route path="/">
         <SignInForm/>

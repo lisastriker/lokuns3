@@ -83,6 +83,14 @@ function signIn(email, password){
     setErrorMessage(error.message);
   });
 }
+
+function signOut(){
+  firebase.auth().signOut().then(() => {
+    console.log("SIgned out")
+  }).catch((error) => {
+    // An error happened.
+  });
+}
   return <MainContainer ><Container><FormGroupStyled>
   <InputLabel htmlFor="my-input">Sign In</InputLabel>  
   <Input required={true} placeholder="Email Address" id="my-input" aria-describedby="my-helper-text" value={email} onChange={(event) => setEmail(event.target.value)}/>
