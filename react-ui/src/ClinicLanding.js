@@ -94,7 +94,7 @@ function ClinicLanding(){
   function onSubmit(){
     setTextMessage(encodeURIComponent(`Job ID: ${jobId} Your appointment on ${date} has been approved by ${clinicEmail}`))
     setRecipient("+6586121207")
-    fetch(`http://localhost:4000/send-text?textMessage=${textMessage}`)
+    fetch(`/send-text?textMessage=${textMessage}&recipient=${recipient}`)
   } //append at &recipient=${recipient} ,= this is phone so take from either finalPhoneValue or props.finalnumber from doctorform
 
 
