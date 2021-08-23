@@ -131,7 +131,7 @@ function App() {
 
   function Home() {
     return (
-        <div style={{width:"100%", margin:"20px", flexDirection:"column", display:"flex"}}>
+        <div style={{width:"100%", marginTop:"20px", flexDirection:"column", display:"flex"}}>
         <div style={{alignItems:"center"}}>
         {loaded ? listAccordian : null} 
         <Pagination style={{backgroundColor:"white", marginTop:"10px"}} shape="rounded" color="secondary" variant="outline" page={page} count={Math.ceil(firebaseData.length / postsPerPage)} onChange={handleChange}/>
@@ -152,7 +152,7 @@ function App() {
         <ClinicLanding />
       </Route>
       <Route path="/home">
-        {userProfile ? <Home></Home> : <SignInForm></SignInForm>}
+        <Home></Home>
       </Route>
       <Route path="/">
         <SignInForm/>
@@ -167,5 +167,5 @@ function App() {
 }
 
 export default App;
-
+//Fix home later
 // <Route path="/home" render={()=>userProfile? <Home></Home> : <Redirect to={{path:'/'}}></Redirect>}>

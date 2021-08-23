@@ -55,3 +55,7 @@
 .MuiOutlinedInput-input{
   padding:0px;
 }
+
+html{
+  width:100vw;
+}
