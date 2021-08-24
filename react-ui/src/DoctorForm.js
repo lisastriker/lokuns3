@@ -151,7 +151,7 @@ function DoctorForm(props) {
       console.log(date)
     }
   }, [day])
-  //Send phone number url to submit form (abit confusing)
+  //Send phone number url to submit form (abit confusing) Send the sms to the clinic we have not coded doctor.
   const uncoded = finalNumberValue.length !==0 ? encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
   const encodedMessage = `${uncoded} ${encoded}`
