@@ -78,7 +78,7 @@ function DoctorForm(props) {
   const [name, setName] = useState("")
   const [address, setAddress] = useState("")
   const [medical, setMedical] = useState("")
-  const [finalNumberValue, setFinalNumberValue] = useState("")
+  const [finalNumberValue, setFinalNumberValue] = useState()
   const [submitNumber ,setSubmitNumber] = useState(0)
   const [day, setDay] = useState("")
   const [date, setDate] = useState("")
@@ -151,8 +151,8 @@ function DoctorForm(props) {
       console.log(date)
     }
   }, [day])
-  //Fix phone number
-  const uncoded = encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `)
+  //Send phone number url to submit form (abit confusing)
+  const uncoded = finalNumberValue.length !==0 ? encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
   const encodedMessage = `${uncoded} ${encoded}`
   

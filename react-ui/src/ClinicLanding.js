@@ -56,6 +56,7 @@ function ClinicLanding(){
   const uid = url.searchParams.get("uid");
   const userid = url.searchParams.get("userid");
   const date = url.searchParams.get("day")
+  const phoneNumber = url.searchParams.get("phone")
 
   useEffect(()=>{
     db.collection("users").doc(userid).get().then((doc)=>{
@@ -93,7 +94,7 @@ function ClinicLanding(){
   
   function onSubmit(){
     setTextMessage(encodeURIComponent(`Job ID: ${jobId} Your appointment on ${date} has been approved by ${clinicEmail}`))
-    setRecipient("+6586121207")
+    setRecipient(`+65${phoneNumber}`)
     fetch(`/send-text?textMessage=${textMessage}`).then(console.log("success")).catch(err => console.log(err))
   } //append at &recipient=${recipient} ,= this is phone so take from either finalPhoneValue or props.finalnumber from doctorform
 
