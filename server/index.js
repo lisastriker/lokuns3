@@ -3,7 +3,7 @@ const path = require('path');
 const accountSid = process.env.REACT_APP_TWILIO_ACCOUNT_SID
 const authToken = process.env.REACT_APP_TWILIO_AUTH_TOKEN
 const PORT = process.env.PORT || 8000;
-
+require('dotenv').config
 const client = require('twilio')(accountSid, authToken);
   const app = express();
 
@@ -25,7 +25,7 @@ const client = require('twilio')(accountSid, authToken);
      to: '+6586121207'
     })
     .then(message => console.log(message.sid));
-    res("Sent")
+    res.send("Sucess")
   })
 
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
