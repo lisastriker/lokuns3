@@ -78,7 +78,7 @@ function DoctorForm(props) {
   const [name, setName] = useState("")
   const [address, setAddress] = useState("")
   const [medical, setMedical] = useState("")
-  const [finalNumberValue, setFinalNumberValue] = useState()
+  const [finalNumberValue, setFinalNumberValue] = useState(0)
   const [submitNumber ,setSubmitNumber] = useState(0)
   const [day, setDay] = useState("")
   const [date, setDate] = useState("")
@@ -152,7 +152,7 @@ function DoctorForm(props) {
     }
   }, [day])
   //Send phone number url to submit form (abit confusing) Send the sms to the clinic we have not coded doctor.
-  const uncoded = finalNumberValue.length !==0 ? encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
+  const uncoded = finalNumberValue.length > 7 ? encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
   const encodedMessage = `${uncoded} ${encoded}`
   
