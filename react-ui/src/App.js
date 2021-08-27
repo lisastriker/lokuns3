@@ -144,14 +144,11 @@ function App() {
       <Route path="/user">
         <User />
       </Route>
-      <Route path="/profile">
-        <ProfilePage />
-      </Route>
       <Route path="/cliniclanding">
         <ClinicLanding />
       </Route>
       <ProtectedRoute path='/home' component={Home} redirectPath="/"></ProtectedRoute>
-      <Route path="/"><SignInForm></SignInForm></Route>
+      {userProfile ? <Route path="/signin"><ProfilePage/></Route> :<Route path="/"><SignInForm></SignInForm></Route>}
       </Switch>
     </div>
     </Router>
