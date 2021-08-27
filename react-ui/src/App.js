@@ -10,12 +10,13 @@ import { Pagination } from '@material-ui/lab'
 import AppBarComponent from './Appbar'
 import { Route, Switch, Redirect, Link, BrowserRouter as Router } from 'react-router-dom';
 import User from './User'
-import DoctorForm from './DoctorForm'
 import SignInForm from './SignInForm'
 import styled from 'styled-components';
 import Views from './Views'
 import ClinicLanding from './ClinicLanding'
-
+import AccordionComponent from './AccordianComponent'
+import ProtectedRoute  from './ProtectedRoute';
+import ProfilePage from './ProfilePage'
 //Use npm run server to start backend, then use npm start
 if(!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -67,14 +68,16 @@ function App() {
 
   useEffect(() => {
     parseData(db)
+
   }, []);
 
   const handleChange = (event, value) => {
     setPage(value);
   };
-  var userProfile = localStorage.getItem('name')
-  console.log(userProfile)
 
+
+  var userProfile = sessionStorage.getItem('useruid')
+  console.log(userProfile)
   const indexOfLastPost = page * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const accordionObject = [firebaseData][0]
@@ -118,17 +121,7 @@ function App() {
     &nbsp;
     <Typography>{data.Subject}</Typography>
     </AccordionSummary>
-
-    <AccordionDetails style={{display:"flex", "wordBreak":"break-word", "flexDirection":"column"}}>
-      <div style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-      <Typography style={{whiteSpace: 'pre-line', textAlign:"left", padding:"0 5px 0 40px", width:"60%"}}>{data.Body}</Typography>
-      <div style={{display:"flex", flexDirection:"column", alignItems:"start", paddingRight:"20px"}}> 
-      <DoctorForm uid={data.id} finalNumber={finalNumber}/>
-      </div>
-      </div>
-      <br/>
-      <Typography>Email sent on : {data.Date}</Typography>
-    </AccordionDetails>
+    <AccordionComponent data={data} id={data.id} number={finalNumber}></AccordionComponent>
     </Accordion>)
   })
 
@@ -151,18 +144,14 @@ function App() {
       <Route path="/user">
         <User />
       </Route>
+      <Route path="/profile">
+        <ProfilePage />
+      </Route>
       <Route path="/cliniclanding">
         <ClinicLanding />
       </Route>
-      <Route path="/home">
-        <Home></Home>
-      </Route>
-      <Route path="/">
-        <SignInForm/>
-      </Route>
-      <Route path="/views">
-        <Views />
-      </Route>
+      <ProtectedRoute path='/home' component={Home} redirectPath="/"></ProtectedRoute>
+      <Route path="/"><SignInForm></SignInForm></Route>
       </Switch>
     </div>
     </Router>
@@ -171,4 +160,5 @@ function App() {
 
 export default App;
 //Fix home later
-// <Route path="/home" render={()=>userProfile? <Home></Home> : <Redirect to={{path:'/'}}></Redirect>}>
+{/* <Route path="/home" render={()=>userProfile? <Home></Home> : <Redirect to={{path:'/'}}></Redirect>}>
+ProtectedRoute path='/' component={SignInForm} redirectPath='/profile'></ProtectedRoute */}

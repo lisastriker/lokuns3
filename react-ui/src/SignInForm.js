@@ -91,9 +91,6 @@ async function logOut(){
 
     await firebase.auth().signOut();
     sessionStorage.clear()
-    this.props.navigator.push({
-      name: "Login"
-    })
 
   } catch (error) {
     console.log(error);

@@ -86,8 +86,8 @@ function DoctorForm(props) {
   //Get userUID --> Fix this below
   var userUID = sessionStorage.getItem('useruid') ? sessionStorage.getItem('useruid') : ""  
   var db = firebase.firestore()
-  console.log(`I am userUID ${userUID}`)
-  console.log(`I am propsuid ${props.uid}`)
+  // console.log(`I am userUID ${userUID}`)
+  // console.log(`I am propsuid ${props.uid}`)
   //Get sign in USERUID
   useEffect(()=>{
     if(userUID){
