@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { firebaseConfig } from "./firebaseConfig"
 import firebase from '@firebase/app';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import React from 'react';
-import { EmailRounded, SettingsBackupRestoreSharp } from '@material-ui/icons';
 import "firebase/firestore";
 import DatePicker from 'react-date-picker';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -82,9 +81,10 @@ function DoctorForm(props) {
   const [submitNumber ,setSubmitNumber] = useState(0)
   const [day, setDay] = useState("")
   const [date, setDate] = useState("")
-
-  //Get userUID
-  var userUID = localStorage.getItem('useruid') ? localStorage.getItem('useruid') : ""  
+  // const location = useLocation()
+  // console.log(location.state.useruid)
+  //Get userUID --> Fix this below
+  var userUID = sessionStorage.getItem('useruid') ? sessionStorage.getItem('useruid') : ""  
   var db = firebase.firestore()
   console.log(`I am userUID ${userUID}`)
   console.log(`I am propsuid ${props.uid}`)
@@ -151,9 +151,9 @@ function DoctorForm(props) {
       console.log(date)
     }
   }, [day]) 
-  // stark-sea-54746.herokuapp.com
+// s://stark-sea-54746.herokuapp.com
   //Send phone number url to submit form (abit confusing) Send the sms to the clinic we have not coded doctor.
-  const uncoded = finalNumberValue.length > 7 ? encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
+  const uncoded = finalNumberValue.length > 7 ? encodeURIComponent(`http://www.localhost:3000/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
   const encodedMessage = `${uncoded} ${encoded}`
   

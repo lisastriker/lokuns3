@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import "firebase/firestore";
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+
 const InputLabel = styled(InputLabel1)`
   font-family: roboto;
   font-size: 1.5em;
@@ -75,7 +76,8 @@ function signIn(email, password){
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     console.log("Signed in")
-    localStorage.setItem('useruid', userCredential.user.uid)
+    sessionStorage.setItem('useruid', userCredential.user.uid)
+    // Lets push user.uid into the state variable. Protect the route to force flow. I need redux store.
     console.log(userCredential.user)
     history.push("/home");
   })
@@ -84,14 +86,20 @@ function signIn(email, password){
   });
 }
 
-function signOut(){
-  firebase.auth().signOut().then(() => {
-    console.log("Signed out")
-  }).catch((error) => {
-    // An error happened.
-  });
+async function logOut(){
+  try {
+
+    await firebase.auth().signOut();
+    sessionStorage.clear()
+    this.props.navigator.push({
+      name: "Login"
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
 }
-  return <MainContainer ><Container><FormGroupStyled>
+  return <MainContainer><Container><FormGroupStyled>
   <InputLabel htmlFor="my-input">Sign In</InputLabel>  
   <Input required={true} placeholder="Email Address" id="my-input" aria-describedby="my-helper-text" value={email} onChange={(event) => setEmail(event.target.value)}/>
   <Input required={true} type="password" id="my-input" aria-describedby="my-helper-text" value={password} onChange={(event) => setPassword(event.target.value)}/>
@@ -99,10 +107,8 @@ function signOut(){
   <Type>{errorMessage}</Type>
   <Type htmlFor="my-input">If you don't have an account sign up.</Type>  
   <Button type="submit" style={{ backgroundColor:"#FF9F1C"}}label="Sign Up" href="/user">Sign Up</Button>
-  </FormGroupStyled>
-  </Container>
-  </MainContainer>
-
+  <Button label="Sign Out" onClick={() => logOut()}>Sign Out</Button>
+  </FormGroupStyled></Container></MainContainer>
 }
 
 export default SignInForm

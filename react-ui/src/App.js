@@ -88,21 +88,24 @@ function App() {
       // console.log(number)
       // console.log(number.length)
       var finalNumber = 0
-      if(number.length > 1) {
-        for(var i=0; i<number.length; i++){
-          if(number[i].substring(0,1) === '8' || number[i].substring(0,1) === '9'){
-            finalNumber = number[i]
-            console.log(`This number has 8 and is ${number[i]}`)
+      if(number !== null){
+        finalNumber = 0
+        if(number.length > 1) {
+          for(var i=0; i<number.length; i++){
+            if(number[i].substring(0,1) === '8' || number[i].substring(0,1) === '9'){
+              finalNumber = number[i]
+              console.log(`This number has 8 and is ${number[i]}`)
+            }
           }
+        }     
+    
+        if(number.length===1){
+          const numberString = number.toString()
+          if(numberString.substring(0,1) === '8' || numberString.substring(0,1) === '9'){
+          finalNumber = numberString
+          console.log(numberString) 
+          } else { console.log("Number no 8 or 9")}
         }
-      }     
-  
-      if(number.length===1){
-        const numberString = number.toString()
-        if(numberString.substring(0,1) === '8' || numberString.substring(0,1) === '9'){
-        finalNumber = numberString
-        console.log(numberString) 
-        } else { console.log("Number no 8 or 9")}
       }
     }
 
@@ -134,7 +137,7 @@ function App() {
         <div style={{width:"100%", marginTop:"20px", flexDirection:"column", display:"flex"}}>
         <div style={{alignItems:"center"}}>
         {loaded ? listAccordian : null} 
-        <Pagination style={{backgroundColor:"white", marginTop:"10px"}} shape="rounded" color="secondary" variant="outline" page={page} count={Math.ceil(firebaseData.length / postsPerPage)} onChange={handleChange}/>
+        <Pagination style={{backgroundColor:"white", marginTop:"10px"}} shape="rounded" color="secondary" variant="outlined" page={page} count={Math.ceil(firebaseData.length / postsPerPage)} onChange={handleChange}/>
         </div>
         </div>
       )

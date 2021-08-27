@@ -95,10 +95,11 @@ function ClinicLanding(){
   useEffect(()=>{
     //Render and set on page load
     setRecipient(phoneNumber)
-    setTextMessage(encodeURIComponent(`Job ID: ${jobId} Your appointment on ${date} has been approved by ${clinicEmail}`))
   },[])
 
   function onSubmit(){
+    setTextMessage(encodeURIComponent(`Job ID: ${jobId} Your appointment on ${date} has been approved by ${clinicEmail}`))
+
     fetch(`/send-text?recipient=${recipient}&textMessage=${textMessage}`).then(console.log("success")).catch(err => console.log(err))
   } //append at &recipient=${recipient} ,= this is phone so take from either finalPhoneValue or props.finalnumber from doctorform
 
