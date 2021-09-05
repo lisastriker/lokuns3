@@ -40,7 +40,6 @@ function Home() {
   
   const userProfile = localStorage.getItem('useruid')
   useEffect(()=>{
-    console.log(location.state)
     console.log(userProfile)
   },[])
 

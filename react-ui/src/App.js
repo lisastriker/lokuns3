@@ -10,9 +10,11 @@ import AccordionComponent from './AccordianComponent'
 import ProtectedRoute  from './ProtectedRoute';
 import ProfilePage from './ProfilePage'
 import { useHistory, useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
 function App(){
-  var userProfile = localStorage.getItem('useruid')
+  const userProfile = localStorage.getItem('useruid')
+  //Always remember the / must be the last route
   return(
     <Router>
     <div className="App" style={{backgroundColor:"grey", height:"100%"}}>
@@ -25,7 +27,8 @@ function App(){
         <ClinicLanding />
       </Route>
       <ProtectedRoute path='/home' component={Home} redirectPath="/"></ProtectedRoute>
-      {userProfile ? <Route path="/signout"><ProfilePage/></Route> :<Route path="/"><SignInForm></SignInForm></Route>}
+      <ProtectedRoute path='/signout' component={ProfilePage} redirectPath="/"></ProtectedRoute>
+      <Route path="/"><SignInForm></SignInForm></Route>
       </Switch>
     </div>
     </Router>
@@ -33,3 +36,4 @@ function App(){
 }
 
 export default App
+

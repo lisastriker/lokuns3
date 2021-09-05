@@ -36,7 +36,7 @@ function AppBarComponent(props) {
         </Badge>
       </IconButton>
       <IconButton >
-      <Link class="ProfileIcon" to="/signin"><AccountCircleIcon/></Link>
+      <Link class="ProfileIcon" to="/signout"><AccountCircleIcon/></Link>
       </IconButton>
       <IconButton
         aria-label="show more"
