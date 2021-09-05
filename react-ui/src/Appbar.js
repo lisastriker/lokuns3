@@ -11,13 +11,17 @@ function AppBarComponent(props) {
   const [name, setName] = useState("")
   var db = firebase.firestore()
   var userUID = localStorage.getItem('useruid') ? localStorage.getItem('useruid') : false
-  if(userUID){
-    db.collection("users").doc(userUID).get().then((doc)=>{
-      if (doc.exists) {
-        setName(doc.data().name)
-      } else { setName("")}
-    })
-  }
+  
+  useEffect(()=>{
+    if(userUID){
+      db.collection("users").doc(userUID).get().then((doc)=>{
+        if (doc.exists) {
+          setName(doc.data().name)
+        } else { setName("")}
+      })
+    }
+  },[userUID])
+
   return (
   <AppBar position="static" style={{"min-width":"400px", backgroundColor:"#FF9F1C"}}>
   <Toolbar>
