@@ -27,7 +27,7 @@ function ProfilePage(){
     try {
   
       await firebase.auth().signOut();
-      sessionStorage.clear()
+      localStorage.clear()
       history.push("/")
   
     } catch (error) {

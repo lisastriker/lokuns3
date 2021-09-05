@@ -76,7 +76,7 @@ function signIn(email, password){
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     console.log("Signed in")
-    sessionStorage.setItem('useruid', userCredential.user.uid)
+    localStorage.setItem('useruid', userCredential.user.uid)
     // Lets push user.uid into the state variable. Protect the route to force flow. I need redux store.
     console.log(userCredential.user)
     history.push("/home");
@@ -90,7 +90,7 @@ async function logOut(){
   try {
 
     await firebase.auth().signOut();
-    sessionStorage.clear()
+    localStorage.clear()
 
   } catch (error) {
     console.log(error);

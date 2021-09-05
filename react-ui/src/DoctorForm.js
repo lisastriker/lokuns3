@@ -1,4 +1,4 @@
-import { Typography, FormGroup, InputLabel as InputLabel1, Input as Input1, Button as Button1} from '@material-ui/core';
+import { Typography, FormGroup, InputLabel as InputLabel1, Input as Input1, Button as Button1, TextField} from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { firebaseConfig } from "./firebaseConfig"
@@ -72,6 +72,14 @@ const FormGroupStyled = styled(FormGroup)`
   border: 2px solid black;
   max-width:100%;
 `
+const TextStyled = styled(TextField)`
+  border:solid 2px black;
+`
+
+const ContainerForTime = styled.div`
+  display:flex;
+  flex-direction:column
+`
 function DoctorForm(props) {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
@@ -84,7 +92,7 @@ function DoctorForm(props) {
   // const location = useLocation()
   // console.log(location.state.useruid)
   //Get userUID --> Fix this below
-  var userUID = sessionStorage.getItem('useruid') ? sessionStorage.getItem('useruid') : ""  
+  var userUID = localStorage.getItem('useruid') ? localStorage.getItem('useruid') : ""  
   var db = firebase.firestore()
   // console.log(`I am userUID ${userUID}`)
   // console.log(`I am propsuid ${props.uid}`)
@@ -174,6 +182,33 @@ function DoctorForm(props) {
         value={day}
       />
     </div>
+    <div style={{display:"flex", flexDirection:"row", justifyContent:"start", paddingTop:"5px", textAlign:"left"}}>
+    <ContainerForTime>
+      <Typography>Start Time</Typography>
+      <TextStyled
+        id="time"
+        type="time"
+        freesolo
+        defaultValue="12:00"
+        InputProps={{
+          shrink: true, 
+          disableUnderline: true 
+        }}
+      />
+      </ContainerForTime>
+      <ContainerForTime>
+      <Typography>End Time</Typography>
+      <TextStyled
+        id="time"
+        type="time"
+        defaultValue="12:00"
+        inputProps={{
+          step: 1800, // 5 min
+          disableUnderline: true 
+        }}
+      />
+      </ContainerForTime>
+      </div>
     <InputLabel1 style={{textAlign: "left", padding:"5px 0 5px 0"}} >Send a whatsapp message to</InputLabel1>
     <Input defaultValue={props.finalNumber} onChange={(e) => setFinalNumberValue(e.target.value)}></Input>
     <Button type="submit" label="Book" onClick={() => openInNewTab(`https://api.whatsapp.com/send/?phone=65${finalNumberValue}&text=${encodedMessage}`, `https://api.whatsapp.com/send/?phone=65${props.finalNumber}&text=${encodedMessage}`)}>Book Now</Button>

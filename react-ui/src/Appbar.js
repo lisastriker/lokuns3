@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 function AppBarComponent(props) {
   const [name, setName] = useState("")
   var db = firebase.firestore()
-  var userUID = sessionStorage.getItem('useruid') ? sessionStorage.getItem('useruid') : false
+  var userUID = localStorage.getItem('useruid') ? localStorage.getItem('useruid') : false
   if(userUID){
     db.collection("users").doc(userUID).get().then((doc)=>{
       if (doc.exists) {
