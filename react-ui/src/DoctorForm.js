@@ -92,7 +92,7 @@ function DoctorForm(props) {
   // const location = useLocation()
   // console.log(location.state.useruid)
   //Get userUID --> Fix this below
-  var userUID = localStorage.getItem('useruid') ? localStorage.getItem('useruid') : ""  
+  var userUID =  localStorage.getItem('useruid') 
   var db = firebase.firestore()
   // console.log(`I am userUID ${userUID}`)
   // console.log(`I am propsuid ${props.uid}`)
@@ -202,7 +202,7 @@ function DoctorForm(props) {
         id="time"
         type="time"
         defaultValue="12:00"
-        inputProps={{
+        InputProps={{
           step: 1800, // 5 min
           disableUnderline: true 
         }}

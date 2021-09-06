@@ -77,6 +77,7 @@ function signIn(email, password){
   .then((userCredential) => {
     console.log("Signed in")
     localStorage.setItem('useruid', userCredential.user.uid)
+    localStorage.setItem('email', userCredential.user.email)
     // Lets push user.uid into the state variable. Protect the route to force flow. I need redux store.
     console.log(userCredential.user)
     history.push("/home");

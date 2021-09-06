@@ -25,10 +25,9 @@ function ProfilePage(){
   let history = useHistory();
   async function logOut(){
     try {
-  
       await firebase.auth().signOut();
       localStorage.clear()
-      history.push("/")
+      history.push("/home")
   
     } catch (error) {
       console.log(error);

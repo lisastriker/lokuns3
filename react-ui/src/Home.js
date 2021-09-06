@@ -28,11 +28,12 @@ var db = firebase.firestore()
 
 function Home() {
   const [loaded, setLoaded] = useState(false)
-  const [firebaseData, setFirebaseData] = useState([""])
+  const [firebaseData, setFirebaseData] = useState([])
   const [expandedPanel, setExpandedPanel] = useState(false);
   const [postsPerPage] = useState(10);
   const [page, setPage] = useState(1)
-  const location = useLocation()
+  const [name, setName] = useState("")
+  const uid = localStorage.getItem("useruid")
   const handleAccordionChange = (number) => (event, isExpanded) => {
     // console.log({ event, isExpanded });
     setExpandedPanel(isExpanded ? number : false);
@@ -73,9 +74,19 @@ function Home() {
       })
   };
 
+  function getName(){
+      if(uid){
+      db.collection("users").doc(uid).get().then((doc)=>{
+        if (doc.exists) {
+          setName(doc.data().name)
+          console.log(name)
+        } else { setName("")}
+      })
+    }
+  }
   useEffect(() => {
     parseData(db)
-
+    getName()
   }, []);
 
   const handleChange = (event, value) => {
@@ -130,13 +141,20 @@ function Home() {
   })
 
     return (
-        <div style={{width:"100%", marginTop:"20px", flexDirection:"column", display:"flex"}}>
+        <div style={{width:"100%", flexDirection:"column", display:"flex"}}>
+        <div style={{
+          position:"absolute", top:"5px", right:"20px",
+          backgroundColor:"rgb(255, 159, 28)", marginBottom:"10px",
+          textAlign:"right", color:"white"
+        }}>
+        <Typography style={{display:"inline-flex"}}>{name}</Typography>
+        </div>
         <div style={{alignItems:"center"}}>
         {loaded ? listAccordian : null} 
         <Pagination style={{backgroundColor:"white", marginTop:"10px"}} shape="rounded" color="secondary" variant="outlined" page={page} count={Math.ceil(firebaseData.length / postsPerPage)} onChange={handleChange}/>
         </div>
         </div>
-      )
+    )
 }
 
 export default Home;
