@@ -113,17 +113,17 @@ function DoctorForm(props) {
           // doc.data() will be undefined in this case
           console.log("No such document!");
       }
+      }).then(()=>{
+        //My submitNumber not rerendering. Fix later
+        if(props.uid){
+          db.collection("submit").doc(props.uid).get().then((doc)=>{
+            setSubmitNumber(doc.data().submits)
+          console.log(doc.data())})
+        } else {console.log(`no props ${props.uid}`)}
       })
     }
-  },[userUID])
+  },[userUID, db, props.uid, submitNumber])
   
-  useEffect(()=>{
-    if(props.uid){
-      db.collection("submit").doc(props.uid).get().then((doc)=>{
-        setSubmitNumber(doc.data().submits)
-      console.log(doc.data())})
-    }  
-  },[props.uid])
     
 
   //Count number of views
