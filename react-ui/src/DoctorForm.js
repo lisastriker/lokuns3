@@ -81,6 +81,7 @@ function DoctorForm(props) {
   const [submitNumber ,setSubmitNumber] = useState(0)
   const [day, setDay] = useState("")
   const [date, setDate] = useState("")
+  const [tinyUrlData, setTinyUrlData] = useState("")
   // const location = useLocation()
   // console.log(location.state.useruid)
   //Get userUID --> Fix this below
@@ -151,11 +152,20 @@ function DoctorForm(props) {
       console.log(date)
     }
   }, [day]) 
-// s://stark-sea-54746.herokuapp.com
-  //Send phone number url to submit form (abit confusing) Send the sms to the clinic we have not coded doctor.
-  const uncoded = finalNumberValue.length > 7 ? encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue} `) : encodeURIComponent(`https://stark-sea-54746.herokuapp.com/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber} `)
+
+  //Convert url to tinyurl (Memoize all these)
+  const getTiny = async () => {
+    const url = finalNumberValue.length > 7 ? encodeURIComponent(`${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue}`) : encodeURIComponent(`${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber}`)
+    fetch(`https://api.tinyurl.com/create?url=${url}`,{
+      method: "POST",
+      headers:{'Authorization': 'Bearer pPjcyOp8scryFfuvicwWZn0doHV1ZOZPRPJHpUyW57oY1NNKEz9XjyggMivf'}
+    }).then(response => response.json()).then(data=> {console.log(data.data.tiny_url) 
+      setTinyUrlData(data.data.tiny_url)}).catch(error=>console.log(error))
+  }
+
+  useEffect(()=>{getTiny()},[])
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
-  const encodedMessage = `${uncoded} ${encoded}`
+  const encodedMessage = `${tinyUrlData} ${encoded}`
   
     return <MainContainer ><Container><FormGroupStyled>
     <div style={{display:"flex", flexDirection:"row", alignSelf:"flex-end"}}>
