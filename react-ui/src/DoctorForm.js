@@ -158,7 +158,7 @@ function DoctorForm(props) {
     const url = finalNumberValue.length > 7 ? encodeURIComponent(`http://${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue}`) : encodeURIComponent(`http://${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber}`)
     fetch(`https://api.tinyurl.com/create?url=${url}`,{
       method: "POST",
-      headers:{'Authorization': 'Bearer pPjcyOp8scryFfuvicwWZn0doHV1ZOZPRPJHpUyW57oY1NNKEz9XjyggMivf'}
+      headers:{'Authorization': `Bearer ${process.env.REACT_APP_BEARER}`}
     }).then(response => response.json()).then(data=> {console.log(data) 
       setTinyUrlData(data.data.tiny_url)}).catch(error=>console.log(error))
   }
