@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {  ExpandMore } from '@material-ui/icons';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { firebaseConfig } from "./firebaseConfig"
 import firebase from 'firebase/app';
 import "firebase/firestore";
@@ -37,6 +37,7 @@ function App() {
 
   const parseData = (db) => {
    const dataArray = [];
+   //You can include .limit(10) after orderBy to only get the top 10
     const snapshot = db.collection('emails').orderBy('Timestamp', 'desc').get();
        snapshot.then(
         (querySnapshot) => {
@@ -63,7 +64,7 @@ function App() {
       setFirebaseData(newArray)
       setLoaded(true)
       })
-  };
+  }
 
   useEffect(() => {
     parseData(db)
@@ -77,8 +78,10 @@ function App() {
 
   const indexOfLastPost = page * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const accordionObject = [firebaseData][0]
-  console.log(accordionObject)
+  const accordionObject = useMemo(()=>{
+    console.log("accordionObject")
+    return [firebaseData][0]}, [firebaseData])
+
   const slice = accordionObject.slice(indexOfFirstPost, indexOfLastPost)
   //Memoize this
   const listAccordian = slice.map(data => {

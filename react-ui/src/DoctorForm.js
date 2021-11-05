@@ -165,7 +165,7 @@ function DoctorForm(props) {
 
   useEffect(()=>{getTiny()},[])
   const encoded = encodeURIComponent(`Hi i'm ${name}, my medical license number is ${medical}, i would like to apply for the slot on ${date} at `)
-  const encodedMessage = `${tinyUrlData} ${encoded}`
+  const encodedMessage = `${encoded} For clinic use, click ${tinyUrlData} to approve this submission`
   
     return <MainContainer ><Container><FormGroupStyled>
     <div style={{display:"flex", flexDirection:"row", alignSelf:"flex-end"}}>
