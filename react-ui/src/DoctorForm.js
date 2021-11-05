@@ -155,11 +155,11 @@ function DoctorForm(props) {
 
   //Convert url to tinyurl (Memoize all these)
   const getTiny = async () => {
-    const url = finalNumberValue.length > 7 ? encodeURIComponent(`${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue}`) : encodeURIComponent(`${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber}`)
+    const url = finalNumberValue.length > 7 ? encodeURIComponent(`http://${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${finalNumberValue}`) : encodeURIComponent(`http://${window.location.host}/cliniclanding?uid=${props.uid}&day=${date}&userid=${userUID}&phone=${props.finalNumber}`)
     fetch(`https://api.tinyurl.com/create?url=${url}`,{
       method: "POST",
       headers:{'Authorization': 'Bearer pPjcyOp8scryFfuvicwWZn0doHV1ZOZPRPJHpUyW57oY1NNKEz9XjyggMivf'}
-    }).then(response => response.json()).then(data=> {console.log(data.data.tiny_url) 
+    }).then(response => response.json()).then(data=> {console.log(data) 
       setTinyUrlData(data.data.tiny_url)}).catch(error=>console.log(error))
   }
 
